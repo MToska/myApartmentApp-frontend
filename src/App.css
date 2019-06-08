@@ -1,0 +1,17 @@
+button:focus {
+    outline: 0;
+}
+
+
+a:link {
+    text-decoration: none;
+}
+
+
+a {
+    color: #343a40;
+}
+
+input {
+    width: 90%;
+}
