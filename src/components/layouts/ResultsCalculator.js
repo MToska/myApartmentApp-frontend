@@ -10,21 +10,22 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 
-class ResultsCalculator extends React.Component {
-    render() {
-
-        return (
-            <div style={{ display: 'flex' }}>
+function ResultsCalculator(props) {
+    return (
+        <div>
+            <div style={{ display: 'flex', marginTop: '3em', marginLeft:'1em' }}>
                 <Grid item xs={6}>
-                    <Typography> Koszty stałe </Typography>
-                    <Table>
+                    <Typography> <b> Koszty stałe </b> </Typography>
+                    <Table style={{
+                        width: '90%'
+                    }}>
                         <TableBody>
                             <TableRow>
                                 <TableCell>
                                     PCC (podatek od czynności cywilnoprawnej) od umowy kupna
                                  </TableCell>
                                 <TableCell align="right">
-                                    12345
+                                    {props.PCCpurchase}
                                 </TableCell>
                                 <TableCell align="right">
                                     2% - podstawa prawna art. 7 ust 1 pkt 1 Ustawy o PCC
@@ -32,21 +33,10 @@ class ResultsCalculator extends React.Component {
                             </TableRow>
                             <TableRow>
                                 <TableCell align="right">
-                                    PCC od ustanowienia hipoteki
-                                </TableCell>
-                                <TableCell align="right">
-                                    12345
-                                </TableCell>
-                                <TableCell>
-                                    zgodnie z art. 7 ust 1 pkt 7a ustawy o PCC "na zabezpieczenie wierzytelności istniejących - od kwoty zabezpieczonej wierzytelności - 0,1%. Założyłam, że kredyt będziesz musiał wziąć na 440 000 zł.
-                                </TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell align="right">
                                     Wpis do księgi wieczystej prawa własności
                                     </TableCell>
                                 <TableCell align="right">
-                                    12345
+                                    {props.mortgageRegisterFeeProprietorship}
                                 </TableCell>
                                 <TableCell>
                                     Opłata ta pobierana jest przez notariusza przy dokonywaniu czynności.
@@ -57,7 +47,7 @@ class ResultsCalculator extends React.Component {
                                     Wpis hipoteki zwykłej w księgę wieczystą
                                 </TableCell>
                                 <TableCell align="right">
-                                    12345
+                                    {props.mortgageRegisterFeeMortgage}
                                 </TableCell>
                                 <TableCell>
                                     Opłata ta pobierana jest przez notariusza przy dokonywaniu czynności.
@@ -67,15 +57,17 @@ class ResultsCalculator extends React.Component {
                     </Table>
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography> Koszty podlegające negocjacji </Typography>
-                    <Table>
+                    <Typography> <b> Koszty podlegające negocjacji </b> </Typography>
+                    <Table style={{
+                        width: '90%'
+                    }}>
                         <TableBody>
                             <TableRow>
                                 <TableCell>
                                     Notariusz - umowa sprzedaży
                                 </TableCell>
                                 <TableCell align="right">
-                                    12345
+                                    {props.conveyancerFee}
                                 </TableCell>
                                 <TableCell align="right">
                                     maksymalna taksa notarialna ustala na podstawie Rozporządzenia MS § 3 pkt. 5
@@ -89,7 +81,7 @@ class ResultsCalculator extends React.Component {
                                     Koszty pośrednika
                                 </TableCell>
                                 <TableCell align="right">
-                                    12345
+                                    {props.agentFee}
                                 </TableCell>
                                 <TableCell>
                                     2% + 23% VAT, możliwość negocjacji przed wejściem do mieszkania
@@ -99,8 +91,12 @@ class ResultsCalculator extends React.Component {
                     </Table>
                 </Grid>
             </div>
-        )
-    }
+            <Typography style={{ marginTop: '3em', textAlign: 'right', marginRight: '6em', fontSize: '2em' }}>
+                Final price: {props.finalPrice}
+            </Typography>
+        </div>
+
+    )
 }
 
 
