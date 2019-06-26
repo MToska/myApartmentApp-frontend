@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 
@@ -24,7 +21,7 @@ function ResultsCalculator(props) {
                                 <TableCell>
                                     PCC (podatek od czynności cywilnoprawnej) od umowy kupna
                                  </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" style={resultCalculator_boldCell}>
                                     {props.PCCpurchase}
                                 </TableCell>
                                 <TableCell align="right">
@@ -35,7 +32,7 @@ function ResultsCalculator(props) {
                                 <TableCell align="right">
                                     Wpis do księgi wieczystej prawa własności
                                     </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" style={resultCalculator_boldCell}>
                                     {props.mortgageRegisterFeeProprietorship}
                                 </TableCell>
                                 <TableCell>
@@ -46,7 +43,7 @@ function ResultsCalculator(props) {
                                 <TableCell align="right">
                                     Wpis hipoteki zwykłej w księgę wieczystą
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" style={resultCalculator_boldCell}>
                                     {props.mortgageRegisterFeeMortgage}
                                 </TableCell>
                                 <TableCell>
@@ -66,7 +63,7 @@ function ResultsCalculator(props) {
                                 <TableCell>
                                     Notariusz - umowa sprzedaży
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" style={resultCalculator_boldCell}>
                                     {props.conveyancerFee}
                                 </TableCell>
                                 <TableCell align="right">
@@ -80,7 +77,7 @@ function ResultsCalculator(props) {
                                 <TableCell align="right">
                                     Koszty pośrednika
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="right" style={resultCalculator_boldCell}>
                                     {props.agentFee}
                                 </TableCell>
                                 <TableCell>
@@ -99,5 +96,8 @@ function ResultsCalculator(props) {
     )
 }
 
+const resultCalculator_boldCell = {
+    fontWeight: 'bold'
+};
 
 export default ResultsCalculator;

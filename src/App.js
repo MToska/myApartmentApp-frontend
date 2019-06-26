@@ -9,23 +9,29 @@ import MainView from './components/layouts/MainView';
 import Ranking from './components/layouts/Ranking';
 import Search from './components/layouts/Search';
 import Calculator from './components/layouts/Calculator';
+import InvestmentDetails from './components/layouts/InvestmentDetails';
+
+import Radium, { StyleRoot } from 'radium';
 
 function App() {
     return (
-        <div className="App">
-            <Router>
-                <Header />
-                <Menu />
-                <Switch>
-                    <Route exact path="/" component={MainView} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/calculator" component={Calculator} />
-                    <Route exact path="/ranking" component={Ranking} />
-                    <Route exact path="/search" component={Search} />
-                </Switch>
-            </Router>
-        </div>
+        <StyleRoot>
+            <div className="App">
+                <Router>
+                    <Header />
+                    <Menu />
+                    <Switch>
+                        <Route exact path="/" component={MainView} />
+                        <Route exact path="/register" component={Register} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/calculator" component={Calculator} />
+                        <Route exact path="/ranking" component={Ranking} />
+                        <Route exact path="/search" component={Search} />
+                        <Route path="/investments" component={InvestmentDetails} />
+                    </Switch>
+                </Router>
+            </div>
+        </StyleRoot>
     );
 }
 

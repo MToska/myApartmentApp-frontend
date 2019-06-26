@@ -4,11 +4,10 @@ const Header = () => {
     return (
         <header>
             <nav className="navbar navbar-dark bg-dark">
-                <div className="container" style={{ marginRight: 0, marginLeft: 0,}}>
-                    <Link to="/" className="navbar-brand">
+                    <Link to="/" className="navbar-brand" style={{marginLeft:'1em'}}>
                         My Apartment Application
                         </Link>
-                    <ul className="navbar-nav" style={{ flexDirection: 'row', width: '30%'}}>
+                    <ul className="navbar-nav" style={{ flexDirection: 'row'}}>
                         <li className="nav-item" style={{ marginLeft: '1em' }}>
                             <NavLink to="/register" className="nav-link">
                                 Register
@@ -20,12 +19,8 @@ const Header = () => {
                             </NavLink>
                         </li>
                     </ul>
-
-
-                </div>
             </nav>
         </header>
-
     )
 }
 

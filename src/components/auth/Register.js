@@ -35,7 +35,7 @@ class Register extends Component {
 
         return (
             <React.Fragment>
-                <div className="container">
+                <div className="container" style={{ backgroundColor: '#fafafa' }}>
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h2 className="mt-5 text-center mb-0">
@@ -54,9 +54,10 @@ class Register extends Component {
                                             errors.type === "username"
                                                 ? "is-invalid form-control"
                                                 : "from control"
-                                                }
+                                        }
                                         placeholder="Enter your username"
-                                    />
+                                        style={register_inputStyle}
+                            />
                                     <span className="invalid-feedback">{errors.msg} </span>
                                 </div>
                                 <div className="form-group">
@@ -68,7 +69,9 @@ class Register extends Component {
                                             errors.type === "email"
                                                 ? "is-invalid form-control"
                                                 : "from control"
-                                        }                                        placeholder="Enter your email"
+                                        }
+                                        placeholder="Enter your email"
+                                        style={register_inputStyle}
                                     />
                                     <span className="invalid-feedback">{errors.msg} </span>
                                 </div>
@@ -81,13 +84,16 @@ class Register extends Component {
                                             errors.type === "password"
                                                 ? "is-invalid form-control"
                                                 : "from control"
-                                        }                                        placeholder="Enter your password"
+                                        }
+                                        placeholder="Enter your password"
+                                        style={register_inputStyle}
                                     />
                                     <span className="invalid-feedback">{errors.msg} </span>
                                 </div>
                                 <input
                                     type="submit"
-                                    className="btn btn-primary justify-content-center d-flex w-100"
+                                    className="btn btn-primary justify-content-center d-flex"
+                                    style={{ width: '20%', margin:'auto' }}
                                     value="Register"
                                 />
                             </form>
@@ -98,6 +104,13 @@ class Register extends Component {
 
         )
     }
+}
+
+const register_inputStyle = {
+    borderRadius: '5px',
+    borderWidth: 'thin',
+    paddingLeft: '0.5em', 
+    backgroundColor: '#eee'
 }
 
 export default Register;

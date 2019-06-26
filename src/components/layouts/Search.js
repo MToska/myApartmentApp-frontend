@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ApartmentCard from './ApartmentCard';
@@ -12,6 +9,9 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 
+const styles = {
+
+}; 
 
 class Search extends React.Component {
 
@@ -23,7 +23,7 @@ class Search extends React.Component {
         roomNumbers: ''
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get(`/api/apartments`)
             .then(res => {
                 const apartmentsList = res.data;
@@ -69,14 +69,13 @@ class Search extends React.Component {
         });
     }
 
-
-
     render() {
-        console.log(this.state.apartmentsList);
         return (
-            <div>
-                <form autoComplete="off" style={{ display: 'inline-flex' }}>
-                    <Typography>Cena </Typography>
+            <div style={{
+                backgroundColor: '#fafafa'
+            }}>
+                <form autoComplete="off" style={{ display: 'inline-flex', marginBottom: '1em' }}>
+                    <StyledTypography>Cena </StyledTypography>
                     <FormControl>
                         <Select
                             value={this.state.priceMin}
@@ -111,7 +110,7 @@ class Search extends React.Component {
                             <MenuItem value={1200000}> 1 200 000</MenuItem>
                         </Select>
                     </FormControl>
-                    <InputLabel htmlFor="priceMax-simple">do</InputLabel>
+                    <InputLabel htmlFor="priceMax-simple" style={{ padding: '0 1em'}}>do</InputLabel>
                     <FormControl>
                         <Select
                             value={this.state.priceMax}
@@ -145,7 +144,7 @@ class Search extends React.Component {
                             <MenuItem value={1200000}> 1 200 000</MenuItem>
                         </Select>
                     </FormControl>
-                    <Typography>Lokalizacja </Typography>
+                    <StyledTypography>Lokalizacja </StyledTypography>
                     <FormControl>
                         <Select
                             value={this.state.localization}
@@ -176,7 +175,7 @@ class Search extends React.Component {
                             <MenuItem value="Nowa Huta">Nowa Huta</MenuItem>
                         </Select>
                     </FormControl>
-                    <Typography>Liczba pokoi </Typography>
+                    <StyledTypography>Liczba pokoi </StyledTypography>
                     <FormControl>
                         <Select
                             value={this.state.roomNumbers}
@@ -195,22 +194,26 @@ class Search extends React.Component {
                             <MenuItem value="more">wiecej niż 5</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant="contained" onClick={this.buttonHandler}>
+                    <Button variant="contained" onClick={this.buttonHandler} style={{ marginLeft: '3em' }}>
                         Szukaj
                  </Button>
                 </form>
-
-                {this.state.apartmentsList.length === 0 || this.state.apartmentsList === ''
-                    ? this.state.apartmentsList === ''
-                        ? <p> Ładowanie danych </p>
-                        : <p> Brak mieszkań spełniających wybrane kryteria </p>
-                    : <ApartmentCard apartmentsList={this.state.apartmentsList} />
+                {
+                    this.state.apartmentsList.length === 0 || this.state.apartmentsList === ''
+                        ? this.state.apartmentsList === ''
+                            ? <p> Ładowanie danych </p>
+                            : <p> Brak mieszkań spełniających wybrane kryteria </p>
+                        : <ApartmentCard apartmentsList={this.state.apartmentsList} />
                 }
-
             </div>
-
         )
     }
 }
 
-export default Search;
+const StyledTypography = withStyles({
+    root: {
+        padding: '0 2em'
+    }
+})(Typography);
+
+export default withStyles(styles)(Search);
