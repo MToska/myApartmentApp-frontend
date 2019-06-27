@@ -1,10 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+
 import Home from '@material-ui/icons/Home';
 import Equalizer from '@material-ui/icons/Equalizer';
 import TrendingUp from '@material-ui/icons/TrendingUp';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+
+import { Tab, Tabs } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 

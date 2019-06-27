@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import axios from 'axios';
-import { Typography } from '@material-ui/core';
 import StarRatings from 'react-star-ratings';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+
+import { Button, TextField, Typography } from '@material-ui/core';
 
 class Ratings extends React.Component {
     constructor(props) {
         super(props);
         this.changeRating = this.changeRating.bind(this);
         this.state = {
-            rating: 0
+            rating: 0,
+            commentFieldValue: '',
+            nameFieldValue: ''
         };
     }
 
@@ -19,6 +20,28 @@ class Ratings extends React.Component {
             rating: newRating
         });
     }
+
+    onClickHandler = () => {
+        const commentDetails = {
+            investmentName: this.props.investmentName,
+            commentFieldValue: this.state.commentFieldValue,
+            nameFieldValue: this.state.nameFieldValue,
+            rating: this.state.rating
+        }
+
+        axios.post(`/api/comments/add`, { commentDetails: commentDetails })
+            .then(res => {
+                console.log(res.data);
+            });
+    }
+
+    commentFieldChangeHandler = (e) => {
+        this.state.commentFieldValue = e.target.value;
+    }
+    nameFieldChangeHandler = (e) => {
+        this.state.nameFieldValue = e.target.value;
+    }
+
     render() {
         return (
             <div>
@@ -33,21 +56,25 @@ class Ratings extends React.Component {
                 />
                 <TextField
                     id="filled-multiline-static"
+                    label="Imie"
+                    multiline
+                    rows="1"
+                    margin="normal"
+                    onChange={this.nameFieldChangeHandler}
+                />
+                <TextField
+                    id="filled-multiline-static"
                     label="Oceń inwestycje"
                     multiline
-                    rows="4"
+                    rows="2"
                     margin="normal"
-                    variant="filled"
-                    fullWidth	
+                    fullWidth
+                    onChange={this.commentFieldChangeHandler}
                 />
-                <Button>Dodaj ocene</Button>
-
+                <Button onClick={this.onClickHandler}>Dodaj ocene</Button>
             </div>
         )
     }
 }
-const styles = ({
-
-});
 
 export default Ratings;

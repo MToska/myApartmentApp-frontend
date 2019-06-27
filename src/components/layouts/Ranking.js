@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import InvestmentCard from './InvestmentCard';
 import axios from 'axios';
 
@@ -6,6 +6,7 @@ class Ranking extends React.Component {
     state = {
         investmentsList: ''
     }
+
     componentDidMount() {
         axios.get(`/api/ranking`)
             .then(res => {
@@ -15,7 +16,6 @@ class Ranking extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 {

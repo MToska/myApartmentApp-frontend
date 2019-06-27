@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import Header from "./components/layouts/Header";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -11,7 +12,7 @@ import Search from './components/layouts/Search';
 import Calculator from './components/layouts/Calculator';
 import InvestmentDetails from './components/layouts/InvestmentDetails';
 
-import Radium, { StyleRoot } from 'radium';
+import { StyleRoot } from 'radium';
 
 function App() {
     return (

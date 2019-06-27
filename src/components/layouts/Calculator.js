@@ -1,14 +1,11 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
+import axios from 'axios';
+
+import { Divider, FormControl, IconButton, Input, InputAdornment, Typography } from '@material-ui/core';
+
 import SearchIcon from '@material-ui/icons/Search';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/styles';
 import CalculatorPhoto from '../../photos/calculator.jpg';
-import axios from 'axios';
 import ResultsCalculator from './ResultsCalculator';
 
 const styles = theme => ({

@@ -9,10 +9,9 @@ const MainView = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             height: '35em',
-            width:'100%'
-}}>
+            width: '100%'
+        }}>
         </div>
-
     )
 }
 

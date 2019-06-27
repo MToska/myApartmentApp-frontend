@@ -1,17 +1,10 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import SearchIcon from '@material-ui/icons/Search';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/styles';
-import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import { withStyles } from '@material-ui/styles';
+
+import { Card, CardContent, Typography } from '@material-ui/core';
+import axios from 'axios';
 import Ratings from './Ratings';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
 const queryString = require('query-string');
 
@@ -36,7 +29,8 @@ class InvestmentDetails extends React.Component {
         access: '',
         investmentName: '',
         investmentDetails: '',
-        investmentsComments: ''
+        investmentsComments: '',
+        rating: ''
     }
 
     componentDidMount() {
@@ -59,7 +53,12 @@ class InvestmentDetails extends React.Component {
                             const investmentsComments = res.data;
                             this.setState({ investmentsComments });
                         });
-
+                    axios.post(`/api/comments/rating`, { investmentName: investmentName })
+                        .then(res => {
+                            const rating = res.data.average_grade;
+                            console.log(rating)
+                            this.setState({ rating });
+                        });
                 });
             });
     }
@@ -67,7 +66,6 @@ class InvestmentDetails extends React.Component {
     render() {
         console.log(this.state.access);
         console.log(this.props.params);
-        const { classes } = this.props;
 
         let investmentsComments = this.state.investmentsComments;
         let comments;
@@ -90,19 +88,24 @@ class InvestmentDetails extends React.Component {
             )
         }
 
-
+        let stars;
+        if (this.state.rating !== '') {
+            stars = (
+                <StarRatings
+                    rating={this.state.rating}
+                    starRatedColor="yellow"
+                    numberOfStars={5}
+                    name='rating'
+                    starDimension='25px'
+                />
+            )
+        }
 
         return (
             <div style={{ textAlign: 'center', backgroundColor: '#fafafa' }}>
                 {this.state.investmentName}
                 <Typography variant="subtitle1" color="textSecondary">
-                    <StarRatings
-                        rating={this.state.investmentDetails.grading}
-                        starRatedColor="yellow"
-                        numberOfStars={5}
-                        name='rating'
-                        starDimension='25px'
-                    />
+                    {stars}
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
                     {this.state.investmentDetails.localization}
@@ -120,7 +123,11 @@ class InvestmentDetails extends React.Component {
                 <div>
                     {comments}
                 </div>
-                <Ratings />
+                {
+                    this.state.investmentName !== ''
+                        ? <Ratings investmentName={this.state.investmentName} />
+                        : <Typography>Loading </Typography>
+            }
             </div>
         )
     }

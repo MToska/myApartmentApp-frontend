@@ -1,16 +1,12 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Typography } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
 
+import { Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 
 function ResultsCalculator(props) {
     return (
         <div>
-            <div style={{ display: 'flex', marginTop: '3em', marginLeft:'1em' }}>
+            <div style={{ display: 'flex', marginTop: '3em', marginLeft: '1em' }}>
                 <Grid item xs={6}>
                     <Typography> <b> Koszty stałe </b> </Typography>
                     <Table style={{
@@ -92,7 +88,6 @@ function ResultsCalculator(props) {
                 Final price: {props.finalPrice}
             </Typography>
         </div>
-
     )
 }
 

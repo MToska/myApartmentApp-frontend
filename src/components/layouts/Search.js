@@ -1,13 +1,10 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import ApartmentCard from './ApartmentCard';
 import axios from 'axios';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
+
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography} from '@material-ui/core';
+
+import { withStyles } from '@material-ui/core/styles';
+import ApartmentCard from './ApartmentCard';
 
 const styles = {
 

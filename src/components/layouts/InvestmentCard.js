@@ -1,18 +1,9 @@
 
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import iconApartment from '../../photos/iconApartment.jpg';
 import StarRatings from 'react-star-ratings';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { Link } from 'react-router-dom';
+
+import { Button, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
+import iconApartment from '../../photos/iconApartment.jpg';
 import { withRouter } from 'react-router-dom';
 
 
@@ -48,7 +39,7 @@ class InvestmentCard extends React.Component {
                                         grading: investment.grading
                                     }, () => {
                                         this.props.history.push(`/investments/?name=${this.state.title}`)
-                                        }
+                                    }
                                     )}>
                                         <CardMedia>
                                             <img src={iconApartment} alt="icon apartment" style={{ width: '200px', height: '150px' }} />
