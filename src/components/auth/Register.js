@@ -22,7 +22,7 @@ class Register extends Component {
             password: this.state.password
         }
         axios.post('/api/users/register', newUser)
-            .then(res => this.props.history.push("/login"))
+            .then(res => this.props.history.push("/"))
             .catch(err =>
                 this.setState({
                     errors: err.response.data
@@ -35,7 +35,7 @@ class Register extends Component {
 
         return (
             <React.Fragment>
-                <div className="container" style={{ backgroundColor: '#fafafa' }}>
+                <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h2 className="mt-5 text-center mb-0">
@@ -109,8 +109,7 @@ class Register extends Component {
 const register_inputStyle = {
     borderRadius: '5px',
     borderWidth: 'thin',
-    paddingLeft: '0.5em', 
-    backgroundColor: '#eee'
+    paddingLeft: '0.5em'
 }
 
 export default Register;

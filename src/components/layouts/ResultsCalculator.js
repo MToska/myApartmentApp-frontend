@@ -18,7 +18,7 @@ function ResultsCalculator(props) {
                                     PCC (podatek od czynności cywilnoprawnej) od umowy kupna
                                  </TableCell>
                                 <TableCell align="right" style={resultCalculator_boldCell}>
-                                    {props.PCCpurchase}
+                                    {props.PCCpurchase} PLN
                                 </TableCell>
                                 <TableCell align="right">
                                     2% - podstawa prawna art. 7 ust 1 pkt 1 Ustawy o PCC
@@ -29,7 +29,7 @@ function ResultsCalculator(props) {
                                     Wpis do księgi wieczystej prawa własności
                                     </TableCell>
                                 <TableCell align="right" style={resultCalculator_boldCell}>
-                                    {props.mortgageRegisterFeeProprietorship}
+                                    {props.mortgageRegisterFeeProprietorship} PLN
                                 </TableCell>
                                 <TableCell>
                                     Opłata ta pobierana jest przez notariusza przy dokonywaniu czynności.
@@ -40,7 +40,7 @@ function ResultsCalculator(props) {
                                     Wpis hipoteki zwykłej w księgę wieczystą
                                 </TableCell>
                                 <TableCell align="right" style={resultCalculator_boldCell}>
-                                    {props.mortgageRegisterFeeMortgage}
+                                    {props.mortgageRegisterFeeMortgage} PLN
                                 </TableCell>
                                 <TableCell>
                                     Opłata ta pobierana jest przez notariusza przy dokonywaniu czynności.
@@ -60,7 +60,7 @@ function ResultsCalculator(props) {
                                     Notariusz - umowa sprzedaży
                                 </TableCell>
                                 <TableCell align="right" style={resultCalculator_boldCell}>
-                                    {props.conveyancerFee}
+                                    {props.conveyancerFee} PLN
                                 </TableCell>
                                 <TableCell align="right">
                                     maksymalna taksa notarialna ustala na podstawie Rozporządzenia MS § 3 pkt. 5
@@ -74,7 +74,7 @@ function ResultsCalculator(props) {
                                     Koszty pośrednika
                                 </TableCell>
                                 <TableCell align="right" style={resultCalculator_boldCell}>
-                                    {props.agentFee}
+                                    {props.agentFee} PLN
                                 </TableCell>
                                 <TableCell>
                                     2% + 23% VAT, możliwość negocjacji przed wejściem do mieszkania
@@ -85,7 +85,7 @@ function ResultsCalculator(props) {
                 </Grid>
             </div>
             <Typography style={{ marginTop: '3em', textAlign: 'right', marginRight: '6em', fontSize: '2em' }}>
-                Final price: {props.finalPrice}
+                Final price: {props.finalPrice} PLN
             </Typography>
         </div>
     )

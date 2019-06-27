@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import { withStyles } from '@material-ui/styles';
 
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, Link, Typography } from '@material-ui/core';
 import axios from 'axios';
 import Ratings from './Ratings';
 
@@ -33,40 +33,37 @@ class InvestmentDetails extends React.Component {
         rating: ''
     }
 
-    componentDidMount() {
+    componentWillMount() {
         axios.get('/api/users/checkToken')
             .then(res => {
                 this.setState({ access: res.data })
-            }, () => {
-                const values = queryString.parse(this.props.location.search);
-                this.setState({
-                    investmentName: values.name
-                }, () => {
-                    const investmentName = this.state.investmentName;
-                    axios.post(`/api/ranking`, { investmentName: investmentName })
-                        .then(res => {
-                            const investmentDetails = res.data[0];
-                            this.setState({ investmentDetails });
-                        });
-                    axios.post(`/api/comments`, { investmentName: investmentName })
-                        .then(res => {
-                            const investmentsComments = res.data;
-                            this.setState({ investmentsComments });
-                        });
-                    axios.post(`/api/comments/rating`, { investmentName: investmentName })
-                        .then(res => {
-                            const rating = res.data.average_grade;
-                            console.log(rating)
-                            this.setState({ rating });
-                        });
-                });
             });
     }
 
+    componentDidMount() {
+        const values = queryString.parse(this.props.location.search);
+        this.setState({
+            investmentName: values.name
+        }, () => {
+            const investmentName = this.state.investmentName;
+            axios.post(`/api/ranking`, { investmentName: investmentName })
+                .then(res => {
+                    const investmentDetails = res.data[0];
+                    this.setState({ investmentDetails });
+                });
+            axios.post(`/api/comments`, { investmentName: investmentName })
+                .then(res => {
+                    const investmentsComments = res.data;
+                    this.setState({ investmentsComments });
+                });
+            axios.post(`/api/comments/rating`, { investmentName: investmentName })
+                .then(res => {
+                    const rating = res.data.average_grade;
+                    this.setState({ rating });
+                });
+        });
+    } 
     render() {
-        console.log(this.state.access);
-        console.log(this.props.params);
-
         let investmentsComments = this.state.investmentsComments;
         let comments;
         if (investmentsComments !== '') {
@@ -75,9 +72,18 @@ class InvestmentDetails extends React.Component {
                     return (
                         <Card style={{ display: 'inline-flex', width: '100%' }}>
                             <CardContent>
-                                <Typography component="h5" variant="h5">
-                                    {comment.author}
-                                </Typography>
+                                <div style={{ display: 'flex' }}>
+                                    <Typography component="h5" variant="h5" style={{ marginRight: '1em' }}>
+                                        {comment.author}
+                                    </Typography>
+                                    <StarRatings
+                                        rating={comment.grading}
+                                        starRatedColor="yellow"
+                                        numberOfStars={5}
+                                        name='rating'
+                                        starDimension='25px'
+                                    />
+                                </div>
                                 <Typography variant="subtitle1" color="textSecondary">
                                     {comment.comment}
                                 </Typography>
@@ -100,35 +106,48 @@ class InvestmentDetails extends React.Component {
                 />
             )
         }
-
         return (
-            <div style={{ textAlign: 'center', backgroundColor: '#fafafa' }}>
-                {this.state.investmentName}
-                <Typography variant="subtitle1" color="textSecondary">
-                    {stars}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                    {this.state.investmentDetails.localization}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                    {this.state.investmentDetails.developer}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                    Data zakończenia: {this.state.investmentDetails.end_date}
-                </Typography>
-                <Typography variant="subtitle1" color="textSecondary">
-                    Description: {this.state.investmentDetails.description}
-                </Typography>
-                <Typography> Komentarze</Typography>
-                <div>
-                    {comments}
-                </div>
+            <div>
                 {
-                    this.state.investmentName !== ''
-                        ? <Ratings investmentName={this.state.investmentName} />
-                        : <Typography>Loading </Typography>
-            }
+                    this.state.access === 'OK'
+                        ? <div>
+                            <div style={{ display: 'inline-flex', marginBottom: '2em' }}>
+                                <div style={{ paddingLeft: '1em', width: '70%' }}>
+                                    <Typography component="h5" variant="h5" color="textSecondary">
+                                        {this.state.investmentName}
+                                    </Typography>
+                                    {stars}
+                                    <Typography variant="subtitle1" color="textSecondary">
+                                        {this.state.investmentDetails.localization}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="textSecondary">
+                                        {this.state.investmentDetails.developer}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="textSecondary">
+                                        Data zakończenia: {this.state.investmentDetails.end_date}
+                                    </Typography>
+                                    <Typography variant="subtitle1" color="textSecondary">
+                                        Description: {this.state.investmentDetails.description}
+                                    </Typography>
+                                </div>
+                                <div>
+                                    {
+                                        this.state.investmentName !== ''
+                                            ? <Ratings investmentName={this.state.investmentName} />
+                                            : <Typography>Loading </Typography>
+                                    }
+                                </div>
+                            </div>
+                            <div>
+                                {comments}
+                            </div>
+                        </div>
+                        : <Link to="/login" href="/login">
+                            <Button style={{ marginTop: '10em', marginLeft: '40em', backgroundColor: '#d7d7d7' }}> Zaloguj się aby uzyskać dostęp </Button>
+                        </Link>
+                }
             </div>
+
         )
     }
 }

@@ -21,7 +21,6 @@ class InvestmentCard extends React.Component {
 
     render() {
         let investmentsList = this.props.investmentsList;
-        console.log(investmentsList);
         return (
             <div>
                 {

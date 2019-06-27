@@ -1,8 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import { withStyles } from '@material-ui/core/styles';
 
 import { Button, TextField, Typography } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 
 class Ratings extends React.Component {
     constructor(props) {
@@ -11,7 +18,8 @@ class Ratings extends React.Component {
         this.state = {
             rating: 0,
             commentFieldValue: '',
-            nameFieldValue: ''
+            nameFieldValue: '',
+            open: true
         };
     }
 
@@ -22,19 +30,26 @@ class Ratings extends React.Component {
     }
 
     onClickHandler = () => {
-        const commentDetails = {
-            investmentName: this.props.investmentName,
-            commentFieldValue: this.state.commentFieldValue,
-            nameFieldValue: this.state.nameFieldValue,
-            rating: this.state.rating
-        }
+        if (this.state.commentFieldValue !== '' && this.state.nameFieldValue !== '' && this.state.rating !== 0) {
+            const commentDetails = {
+                investmentName: this.props.investmentName,
+                commentFieldValue: this.state.commentFieldValue,
+                nameFieldValue: this.state.nameFieldValue,
+                rating: this.state.rating
+            }
 
-        axios.post(`/api/comments/add`, { commentDetails: commentDetails })
-            .then(res => {
-                console.log(res.data);
-            });
+            axios.post(`/api/comments/add`, { commentDetails: commentDetails })
+                .then(res => {
+                    alert(res.data);
+                });
+        } else {
+            alert('Uzupełnij wszystkie pola komentarza')
+        }
     }
 
+    handleClose() {
+        this.setState({ open: false });
+    }
     commentFieldChangeHandler = (e) => {
         this.state.commentFieldValue = e.target.value;
     }
@@ -43,8 +58,9 @@ class Ratings extends React.Component {
     }
 
     render() {
+        console.log(this.state.commentFieldValue);
         return (
-            <div>
+            <div style={{ textAlign: 'center', display: 'grid', marginTop: '1em', marginLeft: '3em' }}>
                 <Typography>Oceń inwestycje</Typography>
                 <StarRatings
                     rating={this.state.rating}
@@ -53,6 +69,8 @@ class Ratings extends React.Component {
                     changeRating={this.changeRating}
                     numberOfStars={5}
                     name='rating'
+                    style={{ width: '80%' }}
+
                 />
                 <TextField
                     id="filled-multiline-static"
@@ -68,13 +86,24 @@ class Ratings extends React.Component {
                     multiline
                     rows="2"
                     margin="normal"
-                    fullWidth
                     onChange={this.commentFieldChangeHandler}
                 />
-                <Button onClick={this.onClickHandler}>Dodaj ocene</Button>
+                <StyledButton onClick={this.onClickHandler}>Dodaj ocene</StyledButton>
             </div>
         )
     }
 }
 
-export default Ratings;
+const styles = {
+
+};
+
+const StyledButton = withStyles({
+    root: {
+        backgroundColor: '#d2cfcf',
+        width: '70%',
+        margin: 'auto'
+    }
+})(Button);
+
+export default withStyles(styles)(Ratings);

@@ -32,22 +32,26 @@ class Calculator extends React.Component {
 
     handleClick = e => {
         const apartmentPrice = this.state.apartmentPrice;
-        axios.post('/api/calculator', { apartmentPrice: apartmentPrice })
-            .then(response => {
-                this.setState({
-                    agentFee: response.data.agentFee,
-                    conveyancerFee: response.data.conveyancerFee,
-                    PCCpurchase: response.data.PCCpurchase,
-                    mortgageRegisterFeeProprietorship: response.data.mortgageRegisterFeeProprietorship,
-                    mortgageRegisterFeeMortgage: response.data.mortgageRegisterFeeMortgage,
-                    finalPrice: response.data.finalPrice
+        if (isNaN(apartmentPrice)) {
+            alert('Wprowadź prawidłową liczbę')
+        } else {
+            axios.post('/api/calculator', { apartmentPrice: apartmentPrice })
+                .then(response => {
+                    this.setState({
+                        agentFee: response.data.agentFee,
+                        conveyancerFee: response.data.conveyancerFee,
+                        PCCpurchase: response.data.PCCpurchase,
+                        mortgageRegisterFeeProprietorship: response.data.mortgageRegisterFeeProprietorship,
+                        mortgageRegisterFeeMortgage: response.data.mortgageRegisterFeeMortgage,
+                        finalPrice: response.data.finalPrice
+                    })
                 })
-            })
-            .catch(err =>
-                this.setState({
-                    errors: err.response.data
-                })
-            );
+                .catch(err =>
+                    this.setState({
+                        errors: err.response.data
+                    })
+                );
+        }
     };
 
     handleChange = prop => event => {

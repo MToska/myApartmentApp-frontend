@@ -22,7 +22,7 @@ class Login extends Component {
         }
         axios.post('/api/users/login', newUser)
             .then(res => {
-                this.props.history.push("/ratings", { access: 'granted' });
+                this.props.history.push("/", { access: 'granted' });
             })
             .catch(err =>
                 this.setState({
@@ -35,7 +35,7 @@ class Login extends Component {
         const { email, password, errors } = this.state;
         return (
             <React.Fragment>
-                <div className="container" style={{ backgroundColor: '#fafafa' }}>
+                <div className="container">
                     <div className="row">
                         <div className="col-md-8 m-auto">
                             <h2 className="mt-5 text-center mb-0">
@@ -94,8 +94,7 @@ class Login extends Component {
 const login_inputStyle = {
     borderRadius: '5px',
     borderWidth: 'thin',
-    paddingLeft: '0.5em',
-    backgroundColor: '#eee'
+    paddingLeft: '0.5em'
 }
 
 export default Login;

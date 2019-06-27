@@ -29,7 +29,6 @@ class Search extends React.Component {
     }
 
     buttonHandler = (e) => {
-
         const filterData = {
             priceMin: this.state.priceMin,
             priceMax: this.state.priceMax,
@@ -44,14 +43,29 @@ class Search extends React.Component {
     }
 
     handleChangePriceMin = (event) => {
-        this.setState({
-            priceMin: event.target.value
-        });
+        if (event.target.value < this.state.priceMax) {
+            this.setState({
+                priceMin: event.target.value
+            });
+        } else {
+            this.setState({
+                priceMin: event.target.value,
+                priceMax: ''
+            });
+        }
     }
+
     handleChangePriceMax = (event) => {
-        this.setState({
-            priceMax: event.target.value
-        });
+        if (event.target.value > this.state.priceMin) {
+            this.setState({
+                priceMax: event.target.value
+            });
+        } else {
+            this.setState({
+                priceMax: event.target.value,
+                priceMin: ''
+            });
+        }
     }
 
     handleChangeLocalization = (event) => {
