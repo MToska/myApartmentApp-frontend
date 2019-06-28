@@ -4,7 +4,8 @@ import axios from 'axios';
 
 class Ranking extends React.Component {
     state = {
-        investmentsList: ''
+        investmentsList: '',
+        ratingList: ''
     }
 
     componentDidMount() {
@@ -12,6 +13,11 @@ class Ranking extends React.Component {
             .then(res => {
                 const investmentsList = res.data;
                 this.setState({ investmentsList });
+            });
+        axios.get(`/api/comments`)
+            .then(res => {
+                const ratingList = res.data;
+                this.setState({ ratingList });
             });
     }
 
@@ -21,7 +27,7 @@ class Ranking extends React.Component {
                 {
                     this.state.investmentsList.length === 0 || this.state.investmentsList === ''
                         ? <p> Ładowanie danych </p>
-                        : <InvestmentCard investmentsList={this.state.investmentsList} />
+                        : <InvestmentCard ratingList={this.state.ratingList} investmentsList={this.state.investmentsList} />
                 }
             </div>
         )

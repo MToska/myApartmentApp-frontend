@@ -20,6 +20,9 @@ class InvestmentCard extends React.Component {
     }
 
     render() {
+        console.log(this.props.ratingList);
+        let dupa = Object.entries(this.props.ratingList);
+        console.log(dupa);
         let investmentsList = this.props.investmentsList;
         return (
             <div>
@@ -34,8 +37,7 @@ class InvestmentCard extends React.Component {
                                         localization: investment.localization,
                                         developer: investment.developer,
                                         endDate: investment.end_date,
-                                        description: investment.description,
-                                        grading: investment.grading
+                                        description: investment.description
                                     }, () => {
                                         this.props.history.push(`/investments/?name=${this.state.title}`)
                                     }
@@ -61,14 +63,19 @@ class InvestmentCard extends React.Component {
                                             <div style={{
                                                 marginLeft: '7em'
                                             }}>
-                                                <Typography variant="subtitle1" color="textSecondary">
-                                                    <StarRatings
-                                                        rating={investment.grading}
-                                                        starRatedColor="yellow"
-                                                        numberOfStars={5}
-                                                        name='rating'
-                                                    />
-                                                </Typography>
+                                                {dupa.map(dup => {
+                                                    return (
+                                                        investment.investment_name === dup[1]._id
+                                                            ? <StarRatings
+                                                                rating={dup[1].average_grade}
+                                                                starRatedColor="yellow"
+                                                                numberOfStars={5}
+                                                                name='rating'
+                                                            />
+                                                            : null
+                                                        )
+                                                })
+                                                }
                                             </div>
                                         </CardContent>
                                     </Button>
