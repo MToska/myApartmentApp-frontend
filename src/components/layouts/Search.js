@@ -1,13 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography} from '@material-ui/core';
+import { Button, CircularProgress, FormControl, InputLabel, MenuItem, Select, Typography} from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 import ApartmentCard from './ApartmentCard';
 
 const styles = {
-
+    formStyle: {
+        display: 'inline-flex',
+        marginBottom: '1em' 
+    },
+    containerStyle: {
+        backgroundColor: '#fafafa'
+    },
+    progress: {
+        marginLeft: '50em',
+        marginTop: '10em'
+    }
 }; 
 
 class Search extends React.Component {
@@ -81,11 +91,11 @@ class Search extends React.Component {
     }
 
     render() {
+        const { classes } = this.props;
+
         return (
-            <div style={{
-                backgroundColor: '#fafafa'
-            }}>
-                <form autoComplete="off" style={{ display: 'inline-flex', marginBottom: '1em' }}>
+            <div className={classes.containerStyle}>
+                <form autoComplete="off" className={classes.formStyle}>
                     <StyledTypography>Cena </StyledTypography>
                     <FormControl>
                         <Select
@@ -212,7 +222,7 @@ class Search extends React.Component {
                 {
                     this.state.apartmentsList.length === 0 || this.state.apartmentsList === ''
                         ? this.state.apartmentsList === ''
-                            ? <p> Ładowanie danych </p>
+                            ? <CircularProgress className={classes.progress} />
                             : <p> Brak mieszkań spełniających wybrane kryteria </p>
                         : <ApartmentCard apartmentsList={this.state.apartmentsList} />
                 }

@@ -22,7 +22,7 @@ class Login extends Component {
         }
         axios.post('/api/users/login', newUser)
             .then(res => {
-                this.props.history.push("/", { access: 'granted' });
+                this.props.history.push("/ranking", { access: 'granted' });
             })
             .catch(err =>
                 this.setState({

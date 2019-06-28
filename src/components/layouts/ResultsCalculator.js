@@ -1,17 +1,16 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
 
 import { Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 
 function ResultsCalculator(props) {
     return (
         <div>
-            <div style={{ display: 'flex', marginTop: '3em', marginLeft: '1em' }}>
+            <div style={containerStyle}>
                 <Grid item xs={6}>
                     <Typography> <b> Koszty stałe </b> </Typography>
-                    <Table style={{
-                        width: '90%'
-                    }}>
+                    <StyledTable>
                         <TableBody>
                             <TableRow>
                                 <TableCell>
@@ -47,13 +46,11 @@ function ResultsCalculator(props) {
                                 </TableCell>
                             </TableRow>
                         </TableBody>
-                    </Table>
+                    </StyledTable>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography> <b> Koszty podlegające negocjacji </b> </Typography>
-                    <Table style={{
-                        width: '90%'
-                    }}>
+                    <StyledTable>
                         <TableBody>
                             <TableRow>
                                 <TableCell>
@@ -81,15 +78,36 @@ function ResultsCalculator(props) {
                                     </TableCell>
                             </TableRow>
                         </TableBody>
-                    </Table>
+                    </StyledTable>
                 </Grid>
             </div>
-            <Typography style={{ marginTop: '3em', textAlign: 'right', marginRight: '6em', fontSize: '2em' }}>
-                Final price: {props.finalPrice} PLN
-            </Typography>
+            <StyledTypography>
+                Cena całkowita: {props.finalPrice} PLN
+            </StyledTypography>
         </div>
     )
 }
+
+const StyledTable = withStyles({
+    root: {
+        width: '90%'
+    }
+})(Table);
+
+const StyledTypography = withStyles({
+    root: {
+        marginTop: '3em',
+        textAlign: 'right',
+        marginRight: '6em',
+        fontSize: '2em'
+    }
+})(Typography);
+
+const containerStyle = {
+    display: 'flex',
+    marginTop: '3em',
+    marginLeft: '1em'
+};
 
 const resultCalculator_boldCell = {
     fontWeight: 'bold'

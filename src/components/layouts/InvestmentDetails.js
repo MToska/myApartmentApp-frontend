@@ -2,7 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import { withStyles } from '@material-ui/styles';
 
-import { Button, Card, CardContent, Link, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, CircularProgress, Link, Typography } from '@material-ui/core';
 import axios from 'axios';
 import Ratings from './Ratings';
 
@@ -21,6 +21,18 @@ const styles = theme => ({
         height: 28,
         margin: 4,
     },
+    detailsSection: {
+        paddingLeft: '1em',
+        width: '70%'
+    },
+    containerSection: {
+        display: 'inline-flex',
+        marginBottom: '2em'
+    }, 
+    progress: {
+        marginLeft: '50em', 
+        marginTop: '10em'
+    }
 });
 
 
@@ -62,20 +74,22 @@ class InvestmentDetails extends React.Component {
                     this.setState({ rating });
                 });
         });
-    } 
+    }
     render() {
+        const { classes } = this.props;
+
         let investmentsComments = this.state.investmentsComments;
         let comments;
         if (investmentsComments !== '') {
             comments = (
                 investmentsComments.map(comment => {
                     return (
-                        <Card style={{ display: 'inline-flex', width: '100%' }}>
+                        <StyledCard>
                             <CardContent>
                                 <div style={{ display: 'flex' }}>
-                                    <Typography component="h5" variant="h5" style={{ marginRight: '1em' }}>
+                                    <StyledTypography component="h5" variant="h5">
                                         {comment.author}
-                                    </Typography>
+                                    </StyledTypography>
                                     <StarRatings
                                         rating={comment.grading}
                                         starRatedColor="yellow"
@@ -88,7 +102,7 @@ class InvestmentDetails extends React.Component {
                                     {comment.comment}
                                 </Typography>
                             </CardContent>
-                        </Card>
+                        </StyledCard>
                     )
                 })
             )
@@ -110,46 +124,69 @@ class InvestmentDetails extends React.Component {
             <div>
                 {
                     this.state.access === 'OK'
-                        ? <div>
-                            <div style={{ display: 'inline-flex', marginBottom: '2em' }}>
-                                <div style={{ paddingLeft: '1em', width: '70%' }}>
-                                    <Typography component="h5" variant="h5" color="textSecondary">
-                                        {this.state.investmentName}
-                                    </Typography>
-                                    {stars}
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                        {this.state.investmentDetails.localization}
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                        {this.state.investmentDetails.developer}
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                        Data zakończenia: {this.state.investmentDetails.end_date}
-                                    </Typography>
-                                    <Typography variant="subtitle1" color="textSecondary">
-                                        Description: {this.state.investmentDetails.description}
-                                    </Typography>
+                        ? this.state.rating !== ''
+                            ? < div >
+                                <div className={classes.containerSection}>
+                                    <div className={classes.detailsSection} >
+                                        <Typography component="h5" variant="h5" color="textSecondary">
+                                            {this.state.investmentName}
+                                        </Typography>
+                                        {stars}
+                                        <Typography variant="subtitle1" color="textSecondary">
+                                            {this.state.investmentDetails.localization}
+                                        </Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">
+                                            {this.state.investmentDetails.developer}
+                                        </Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">
+                                            Data zakończenia: {this.state.investmentDetails.end_date}
+                                        </Typography>
+                                        <Typography variant="subtitle1" color="textSecondary">
+                                            Description: {this.state.investmentDetails.description}
+                                        </Typography>
+                                    </div>
+                                    <div>
+                                        {
+                                            this.state.investmentName !== ''
+                                                ? <Ratings investmentName={this.state.investmentName} />
+                                                : <Typography>Loading </Typography>
+                                        }
+                                    </div>
                                 </div>
                                 <div>
-                                    {
-                                        this.state.investmentName !== ''
-                                            ? <Ratings investmentName={this.state.investmentName} />
-                                            : <Typography>Loading </Typography>
-                                    }
+                                    {comments}
                                 </div>
                             </div>
-                            <div>
-                                {comments}
-                            </div>
-                        </div>
-                        : <Link to="/login" href="/login">
-                            <Button style={{ marginTop: '10em', marginLeft: '40em', backgroundColor: '#d7d7d7' }}> Zaloguj się aby uzyskać dostęp </Button>
-                        </Link>
+                            : <CircularProgress className={classes.progress} />
+                            : <Link to="/login" href="/login">
+                                <StyledButton> Zaloguj się aby uzyskać dostęp </StyledButton>
+                            </Link>
                 }
             </div>
 
         )
     }
 }
+
+const StyledButton = withStyles({
+    root: {
+        marginTop: '10em',
+        marginLeft: '40em',
+        backgroundColor: '#d7d7d7'
+    }
+})(Button);
+
+const StyledCard = withStyles({
+    root: {
+        display: 'inline-flex',
+        width: '100%'
+    }
+})(Card);
+
+const StyledTypography = withStyles({
+    root: {
+        marginRight: '1em'
+    }
+})(Typography);
 
 export default withStyles(styles)(InvestmentDetails);

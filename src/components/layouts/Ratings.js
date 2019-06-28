@@ -58,9 +58,10 @@ class Ratings extends React.Component {
     }
 
     render() {
-        console.log(this.state.commentFieldValue);
+        const { classes } = this.props;
+
         return (
-            <div style={{ textAlign: 'center', display: 'grid', marginTop: '1em', marginLeft: '3em' }}>
+            <div className={classes.containerStyle}>
                 <Typography>Oceń inwestycje</Typography>
                 <StarRatings
                     rating={this.state.rating}
@@ -95,7 +96,12 @@ class Ratings extends React.Component {
 }
 
 const styles = {
-
+    containerStyle: {
+        textAlign: 'center',
+        display: 'grid',
+        marginTop: '1em',
+        marginLeft: '3em'
+    }
 };
 
 const StyledButton = withStyles({

@@ -1,6 +1,9 @@
 import React from 'react';
-import InvestmentCard from './InvestmentCard';
 import axios from 'axios';
+import { withStyles } from '@material-ui/core/styles';
+
+import { CircularProgress } from '@material-ui/core';
+import InvestmentCard from './InvestmentCard';
 
 class Ranking extends React.Component {
     state = {
@@ -25,8 +28,8 @@ class Ranking extends React.Component {
         return (
             <div>
                 {
-                    this.state.investmentsList.length === 0 || this.state.investmentsList === ''
-                        ? <p> Ładowanie danych </p>
+                    this.state.investmentsList.length === 0 || this.state.investmentsList === '' || this.state.ratingList === ''
+                        ? <StyledCircularProgress />
                         : <InvestmentCard ratingList={this.state.ratingList} investmentsList={this.state.investmentsList} />
                 }
             </div>
@@ -34,5 +37,11 @@ class Ranking extends React.Component {
     }
 }
 
+const StyledCircularProgress = withStyles({
+    root: {
+        marginLeft: '50em',
+        marginTop: '10em'
+    }
+})(CircularProgress);
 
 export default Ranking;

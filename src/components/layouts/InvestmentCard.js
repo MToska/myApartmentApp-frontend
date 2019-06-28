@@ -5,6 +5,7 @@ import StarRatings from 'react-star-ratings';
 import { Button, Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import iconApartment from '../../photos/iconApartment.jpg';
 import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
 
 
 let imgUrl = 'https://rentpath-res.cloudinary.com/w_370,h_370,t_rp,cs_tinysrgb,fl_force_strip,c_fill/e_unsharp_mask:50,q_auto/3e551a5c0debe557c97e6ed46c5eb54f';
@@ -20,9 +21,7 @@ class InvestmentCard extends React.Component {
     }
 
     render() {
-        console.log(this.props.ratingList);
-        let dupa = Object.entries(this.props.ratingList);
-        console.log(dupa);
+        let ratingList = Object.entries(this.props.ratingList);
         let investmentsList = this.props.investmentsList;
         return (
             <div>
@@ -30,7 +29,7 @@ class InvestmentCard extends React.Component {
                     investmentsList.map(investment => {
                         return (
                             <div>
-                                <Card style={{ display: 'inline-flex', width: '100%' }}>
+                                <StyledCard>
                                     <Button style={{ width: '100%' }} onClick={() => this.setState({
                                         open: true,
                                         title: investment.investment_name,
@@ -63,11 +62,11 @@ class InvestmentCard extends React.Component {
                                             <div style={{
                                                 marginLeft: '7em'
                                             }}>
-                                                {dupa.map(dup => {
+                                                {ratingList.map(ratingMatch => {
                                                     return (
-                                                        investment.investment_name === dup[1]._id
+                                                        investment.investment_name === ratingMatch[1]._id
                                                             ? <StarRatings
-                                                                rating={dup[1].average_grade}
+                                                                rating={ratingMatch[1].average_grade}
                                                                 starRatedColor="yellow"
                                                                 numberOfStars={5}
                                                                 name='rating'
@@ -79,7 +78,7 @@ class InvestmentCard extends React.Component {
                                             </div>
                                         </CardContent>
                                     </Button>
-                                </Card>
+                                </StyledCard>
                             </div>
                         )
                     })
@@ -89,5 +88,11 @@ class InvestmentCard extends React.Component {
     }
 }
 
+const StyledCard = withStyles({
+    root: {
+        display: 'inline-flex',
+        width: '100%'
+    }
+})(Card);
 
 export default withRouter(InvestmentCard);
